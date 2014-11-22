@@ -29,12 +29,11 @@ import java.util.List;
 public class                MyAmazingLayoutController {
     public enum CalcMode    { NORMAL, SCIENTIFIC }
     @FXML private Label     label_result, label_detailed, label_heart;
-    private  boolean        _dot = false, _operatorPressed = false, _specialOperatorPressed = false;
-    private String          _lastOperator = null, _lastNumber = null, _stored = null;
+    private  boolean        _dot = false, _operatorPressed = false, _specialOperatorPressed = false, _error = false;
+    private String          _lastOperator = null, _lastNumber = null, _stored = null, _cache = null;
     private BigDecimal      _result = null;
-    private Expression      _exp = null;
     private CalcMode        _mode = CalcMode.NORMAL;
-    private int             _precision = 12;
+    private int             _precision = 12, _openingParenthesis = 0, _closingParenthesis = 0;
 
     /**
      * This method is an handler bond to numbers (0 - 9)
@@ -50,9 +49,10 @@ public class                MyAmazingLayoutController {
             label_result.setText("");
             _operatorPressed = false;
         }
-        if (label_result.getText().length() < 12) {
-            if (label_result.getText().equals("0")) {
+        if (label_result.getText().length() < 12 || _error) {
+            if (label_result.getText().equals("0") || _error) {
                 label_result.setText(pressedButton.getText());
+                _error = false;
             } else {
                 label_result.setText(label_result.getText() + pressedButton.getText());
             }
@@ -103,25 +103,32 @@ public class                MyAmazingLayoutController {
      */
     @FXML protected void operatorHandler(ActionEvent event) {
         Button pressedButton = (Button) event.getSource();
-        String calc;
+        String calc = null;
 
         if (!_operatorPressed) {
-            if (label_detailed.getText().length() > 0)
+            if (label_detailed != null && label_detailed.getText().length() > 0)
                 label_detailed.setText(label_detailed.getText() + " ");
             _lastOperator = pressedButton.getText();
             _operatorPressed = true;
-            if (label_detailed.getText().length() == 0) {
+            if (label_detailed != null && label_detailed.getText().length() == 0) {
                 calc = label_result.getText();
-            } else {
+            } else if (label_detailed != null) {
                 calc = label_detailed.getText() + label_result.getText();
             }
-            if (!_specialOperatorPressed)
-                label_detailed.setText(label_detailed.getText() + label_result.getText() + " " + pressedButton.getText());
-            else
-                label_detailed.setText(label_detailed.getText() + " " + pressedButton.getText());
-            _result = calculateExpression(calc);
-            label_result.setText(_result.toString());
-            _specialOperatorPressed = false;
+            if (calc != null) {
+                if (label_detailed != null && !_specialOperatorPressed)
+                    label_detailed.setText(label_detailed.getText() + label_result.getText() + " " + pressedButton.getText());
+                else if (label_detailed != null)
+                    label_detailed.setText(label_detailed.getText() + " " + pressedButton.getText());
+                try {
+                    _result = calculateExpression(calc);
+                    label_result.setText(_result.toString());
+                } catch (Exception e) {
+                    _cache = label_result.getText();
+                    label_result.setText(e.getMessage());
+                }
+                _specialOperatorPressed = false;
+            }
         }
     }
 
@@ -138,13 +145,20 @@ public class                MyAmazingLayoutController {
         } else if (_lastNumber != null && _lastOperator != null) {
             calc = label_result.getText() + _lastOperator + _lastNumber;
         }
-        if (_mode == CalcMode.NORMAL) {
-            _result = calculateExpression(calc);
-        } else if (_mode == CalcMode.SCIENTIFIC) {
-            _result = calculateExpression(calc);
+        try {
+            if (_mode == CalcMode.NORMAL) {
+                _result = calculateExpression(calc);
+            } else if (_mode == CalcMode.SCIENTIFIC) {
+                _result = calculateExpression(calc);
+            }
+            label_result.setText(_result.toString());
+            label_detailed.setText("");
+        } catch (Exception e) {
+            _error = true;
+            _cache = label_result.getText();
+            label_result.setText(e.getMessage());
         }
-        label_result.setText(_result.toString());
-        label_detailed.setText(null);
+        _operatorPressed = false;
     }
 
     /**
@@ -175,7 +189,33 @@ public class                MyAmazingLayoutController {
             _lastNumber = "reciprocal(" + label_result.getText() + ")";
             label_detailed.setText(label_detailed.getText() + "reciprocal(" + label_result.getText() + ")");
             calc = label_detailed.getText();
-            label_result.setText(calculateExpression(calc).toString());
+            try {
+                label_result.setText(calculateExpression(calc).toString());
+            } catch (Exception e) {
+                _cache = label_result.getText();
+                label_result.setText(e.getMessage());
+            }
+            if (_operatorPressed)
+                _operatorPressed = false;
+            _specialOperatorPressed = true;
+        }
+    }
+
+    @FXML protected void squareHandler() {
+        String calc;
+
+        if (!label_result.getText().equals("0")) {
+            if (label_detailed.getText().length() > 0)
+                label_detailed.setText(label_detailed.getText() + " ");
+            _lastNumber = "sqr(" + label_result.getText() + ")";
+            label_detailed.setText(label_detailed.getText() + "sqr(" + label_result.getText() + ")");
+            calc = label_detailed.getText();
+            try {
+                label_result.setText(calculateExpression(calc).toString());
+            } catch (Exception e) {
+                _cache = label_result.getText();
+                label_result.setText(e.getMessage());
+            }
             if (_operatorPressed)
                 _operatorPressed = false;
             _specialOperatorPressed = true;
@@ -192,7 +232,12 @@ public class                MyAmazingLayoutController {
             _lastNumber = pressedButton.getText() + "(" + label_result.getText() + ")";
             label_detailed.setText(label_detailed.getText() + pressedButton.getText() + "(" + label_result.getText() + ")");
             calc = label_detailed.getText();
-            label_result.setText(calculateExpression(calc).toString());
+            try {
+                label_result.setText(calculateExpression(calc).toString());
+            } catch (Exception e) {
+                _cache = label_result.getText();
+                label_result.setText(e.getMessage());
+            }
             if (_operatorPressed)
                 _operatorPressed = false;
             _specialOperatorPressed = true;
@@ -231,7 +276,12 @@ public class                MyAmazingLayoutController {
      * It adds the current display to the number stored in the memory.
      */
     @FXML protected void memoryAddHandler() {
-        _result = calculateExpression(_stored  + "+" + label_result.getText());
+        try {
+            _result = calculateExpression(_stored  + "+" + label_result.getText());
+        } catch (Exception e) {
+            _cache = label_result.getText();
+            label_result.setText(e.getMessage());
+        }
         _stored = _result.toString();
     }
 
@@ -240,8 +290,43 @@ public class                MyAmazingLayoutController {
      * It subtracts the current display to the number stored in the memory.
      */
     @FXML protected void memorySubHandler() {
-        _result = calculateExpression(_stored  + "-" + label_result.getText());
+        try {
+            _result = calculateExpression(_stored  + "-" + label_result.getText());
+        } catch (Exception e) {
+            _cache = label_result.getText();
+            label_result.setText(e.getMessage());
+        }
         _stored = _result.toString();
+    }
+
+    @FXML protected void parenthesisHandler(ActionEvent event) {
+        Button pressedButton = (Button) event.getSource();
+        String string = label_detailed.getText();
+
+        if (pressedButton.getText().equals(")") && _closingParenthesis < _openingParenthesis) {
+            if (string.substring(string.length() - 1).equals("("))
+                label_detailed.setText(label_detailed.getText() + "0");
+            label_detailed.setText(label_detailed.getText() + ")");
+            _closingParenthesis++;
+        } else if (pressedButton.getText().equals("(")) {
+            label_detailed.setText(label_detailed.getText() + "(");
+            _openingParenthesis++;
+        }
+    }
+
+    @FXML protected void reverseHandler() {
+        String  string = label_result.getText();
+
+        if (string.substring(0, 1).equals("-"))
+            label_result.setText(label_result.getText().substring(1, label_result.getText().length()));
+        else
+            label_result.setText("-" + label_result.getText());
+    }
+
+    @FXML protected void piHandler() {
+        BigDecimal pi = new BigDecimal(Math.PI);
+
+        label_result.setText(pi.toString().substring(0, _precision));
     }
 
     /**
@@ -251,8 +336,8 @@ public class                MyAmazingLayoutController {
      * @see com.udojava.evalex.Expression.ExpressionException
      * @return BigDecimal
      */
-    public BigDecimal calculateExpression(String calc) throws Expression.ExpressionException {
-        _exp = new Expression(calc);
+    public BigDecimal calculateExpression(String calc) throws Exception {
+        Expression _exp = new Expression(calc);
         _exp.addFunction(_exp.new Function("reciprocal", 1) {
             @Override
             public BigDecimal eval(List<BigDecimal> parameters) {
@@ -260,7 +345,30 @@ public class                MyAmazingLayoutController {
                 return (res.divide(parameters.get(0), _precision, RoundingMode.HALF_UP));
             }
         });
+        _exp.addFunction(_exp.new Function("sqr", 1) {
+            @Override
+            public BigDecimal eval(List<BigDecimal> parameters) {
+                BigDecimal res = new BigDecimal(1);
+                return (res.multiply(parameters.get(0).multiply(parameters.get(0))));
+            }
+        });
         _exp.setPrecision(_precision);
+        String temporaryResultAsString = _exp.eval().toString();
+        if (temporaryResultAsString.contains("E+")) {
+            System.out.println("The result [" + temporaryResultAsString + "] needs to be split.");
+            String[] temporaryArray = temporaryResultAsString.split("E\\+");
+            System.out.println("Splitted the result in " + temporaryArray.length + " strings");
+            for (int i = 0 ; i < temporaryArray.length ; ++i) {
+                System.out.println("  " + i + ": " + temporaryArray[i]);
+            }
+            String resultWithZeroes = temporaryArray[0];
+            int zeroes = Integer.parseInt(temporaryArray[1]);
+            for (int i = 0 ; i < zeroes ; ++i) {
+                resultWithZeroes += "0";
+            }
+            System.out.println("Final number: " + resultWithZeroes);
+            return (new BigDecimal(resultWithZeroes));
+        }
         return (_exp.eval());
     }
 }

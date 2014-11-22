@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AmazingCalculator.iml" filepath="$PROJECT_DIR$/AmazingCalculator.iml" />
       <module fileurl="file://$PROJECT_DIR$/SimpleCountAgain.iml" filepath="$PROJECT_DIR$/SimpleCountAgain.iml" />
     </modules>
   </component>

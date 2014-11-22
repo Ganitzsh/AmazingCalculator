@@ -11,17 +11,7 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SimpleCount.MyAmazingLayoutController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="View" />
-        <Menu mnemonicParsing="false" text="About">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Niggaaaaaaaa!!" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-      <Label fx:id="label_detailed" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="33.0" prefWidth="640.0" style="-fx-background-color: b1b1b1;" textFill="WHITE">
+      <Label fx:id="label_detailed" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="33.0" prefWidth="640.0" style="-fx-background-color: b9b9b9;" textFill="WHITE">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -216,7 +206,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="button_moreless" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" text="+/-" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button fx:id="button_moreless" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#reverseHandler" text="+/-" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -248,7 +238,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="button_modulo" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" text="\%" textFill="#f12d2d" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="button_modulo" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#operatorHandler" text="\%" textFill="#f12d2d" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -313,7 +303,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="button_pi" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#memorySubHandler" text="Pi" textFill="#0cb500" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="button_pi" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#piHandler" text="Pi" textFill="#0cb500" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -321,7 +311,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="button_square" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#backspaceHandler" text="x²" textFill="#0cb500" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button fx:id="button_square" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#squareHandler" text="x²" textFill="#0cb500" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -332,7 +322,7 @@
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Button fx:id="button_parenthesis_left" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#clearCurrentHandler" text="(" textFill="#0cb500" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Button fx:id="button_parenthesis_left" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#parenthesisHandler" text="(" textFill="#0cb500" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -340,7 +330,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-            <Button fx:id="button_parenthesis_right" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#clearCurrentHandler" text="(" textFill="#0cb500" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Button fx:id="button_parenthesis_right" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#parenthesisHandler" text=")" textFill="#0cb500" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
