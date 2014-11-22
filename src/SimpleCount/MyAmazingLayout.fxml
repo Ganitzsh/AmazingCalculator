@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SimpleCount.MyAmazingLayoutController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="View" />
+        <Menu mnemonicParsing="false" text="About">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Niggaaaaaaaa!!" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <Label fx:id="label_detailed" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="33.0" prefWidth="640.0" style="-fx-background-color: b1b1b1;" textFill="WHITE">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets right="15.0" />
+         </padding>
+      </Label>
+      <Label fx:id="label_result" alignment="CENTER" prefHeight="44.0" prefWidth="640.0" style="-fx-background-color: #b1b1b1;" text="0" textFill="WHITE" VBox.vgrow="ALWAYS">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <GridPane prefHeight="311.0" prefWidth="366.0" style="-fx-vgap: 0;">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="button_backspace" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#backspaceHandler" text="←" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_mc" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#cleanMemoryHandler" text="MC" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_mr" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#recallHandler" text="MR" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_ce" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#clearCurrentHandler" text="CE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_7" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" text="7" textFill="#2e79f2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_8" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" text="8" textFill="#2e79f2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_4" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" text="4" textFill="#2e79f2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_1" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" text="1" textFill="#2e79f2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_0" minHeight="35.0" mnemonicParsing="false" onAction="#handleNumber" prefHeight="35.0" prefWidth="93.0" text="0" textFill="#2e79f2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_2" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" text="2" textFill="#2e79f2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_5" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" text="5" textFill="#2e79f2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_ms" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#storeHandler" text="MS" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_c" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#clearEntireHandler" text="C" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_9" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" text="9" textFill="#2e79f2" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_6" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" text="6" textFill="#2e79f2" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_3" maxHeight="30.0" maxWidth="30.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleNumber" prefHeight="30.0" prefWidth="30.0" text="3" textFill="#2e79f2" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_plus" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#operatorHandler" text="+" textFill="#c30101" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_less" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#operatorHandler" text="-" textFill="#c30101" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_time" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#operatorHandler" text="*" textFill="#c30101" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_div" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#operatorHandler" text="/" textFill="#c30101" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_moreless" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" text="+/-" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_madd" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#memoryAddHandler" text="M+" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_equal" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#equalHandler" text="=" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_lol" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#reciprocalHandler" text="1/x" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_modulo" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" text="\%" textFill="#f12d2d" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_sqrt" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#scientificOperatorHandler" text="sqrt" textFill="#0cb500" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_msub" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#memorySubHandler" text="M-" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_dot" maxHeight="30.0" maxWidth="30.0" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#dotHandler" prefHeight="30.0" prefWidth="30.0" text="." textFill="#2e79f2" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Label fx:id="label_heart" text="" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Button fx:id="button_log10" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#scientificOperatorHandler" text="log" textFill="#0cb500" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="button_cos" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#scientificOperatorHandler" text="cos" textFill="#0cb500" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="button_sin" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#scientificOperatorHandler" text="sin" textFill="#0cb500" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="button_tan" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#scientificOperatorHandler" text="tan" textFill="#0cb500" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="button_pi" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#memorySubHandler" text="Pi" textFill="#0cb500" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="button_square" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#backspaceHandler" text="x²" textFill="#0cb500" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="button_parenthesis_left" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#clearCurrentHandler" text="(" textFill="#0cb500" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="button_parenthesis_right" minHeight="35.0" minWidth="50.0" mnemonicParsing="false" onAction="#clearCurrentHandler" text="(" textFill="#0cb500" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+         </children>
+      </GridPane>
+  </children>
+</VBox>
